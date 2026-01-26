@@ -5,7 +5,7 @@
 **About**
 Hands-on AWS course to build a production-ready, Instagram-like Photo Sharing App. Learn core AWS services—VPC, IAM, KMS, RDS, Secrets Manager, S3, Lambda, ALB, EC2, CloudWatch—and integrate them into a secure, scalable, serverless 3-tier application with real-time monitoring and image processing.
 
----
+
 
 ## Repository Overview
 
