@@ -1,0 +1,135 @@
+---
+
+# VPC & Networking Fundamentals
+
+**Lab 1 – AWS Cloud Photo Sharing Application**
+
+---
+
+## Overview
+
+This lab establishes the **network foundation** for the application by creating a custom Virtual Private Cloud (VPC), defining subnet-level segmentation, and configuring controlled internet access.
+
+The objective is to design a network layout that separates **internet-facing components** from **internal services**, following AWS-recommended architecture patterns.
+
+---
+
+## Environment
+
+* AWS Console (lab-provided temporary account)
+* Region: `us-east-1 (N. Virginia)`
+
+---
+
+## Network Design Summary
+
+| Component        | Configuration               |
+| ---------------- | --------------------------- |
+| VPC              | `kloudtask-vpc`             |
+| VPC CIDR         | `10.16.0.0/16`              |
+| Public Subnet    | `10.16.1.0/24` (us-east-1a) |
+| Private Subnet   | `10.16.2.0/24` (us-east-1a) |
+| Internet Gateway | `kloudtask-igw`             |
+| Route Table      | `public-rt`                 |
+
+---
+
+## VPC Configuration
+
+A custom VPC was created with CIDR block `10.16.0.0/16` to define an isolated network boundary for all application resources.
+
+### Key Points
+
+* Custom VPC used instead of default VPC for better control
+* CIDR range allows sufficient IP capacity for multiple subnets and future scaling
+* DNS resolution and hostnames enabled to support AWS-managed services
+
+---
+
+## Subnet Segmentation
+
+Two subnets were created within the VPC to separate responsibilities:
+
+### Public Subnet
+
+* CIDR: `10.16.1.0/24`
+* Availability Zone: `us-east-1a`
+* Intended for internet-facing components such as:
+
+  * Application Load Balancer (ALB)
+
+### Private Subnet
+
+* CIDR: `10.16.2.0/24`
+* Availability Zone: `us-east-1a`
+* Intended for internal components such as:
+
+  * Databases
+  * Backend services
+
+Subnet sizes were chosen to balance IP availability and manageability.
+
+---
+
+## Internet Connectivity
+
+### Internet Gateway
+
+An Internet Gateway (`kloudtask-igw`) was created and attached to the VPC to enable outbound and inbound internet communication where explicitly allowed.
+
+### Route Table Configuration
+
+A dedicated route table (`public-rt`) was created with the following route:
+
+* `0.0.0.0/0 → Internet Gateway`
+
+This route table was associated **only** with the public subnet.
+
+### Isolation Enforcement
+
+* Public subnet has a default route to the Internet Gateway
+* Private subnet has no route to the Internet Gateway
+* Private resources remain isolated from direct internet access
+
+---
+
+## Verification
+
+The following checks were completed:
+
+* VPC exists with correct CIDR and status `Available`
+* Internet Gateway is attached to the VPC
+* Public subnet routes traffic to the Internet Gateway
+* Private subnet has no internet route configured
+
+---
+
+## Key Observations
+
+* Subnets are classified as public or private based on routing, not naming
+* Internet access is disabled by default at the VPC level
+* Route table associations are critical for enforcing isolation
+* This design aligns with common production AWS architectures
+
+---
+
+
+Screenshots include:
+
+* VPC creation and configuration
+* Subnet definitions
+* Internet Gateway attachment
+* Route table routes
+* Subnet associations
+
+---
+
+## Conclusion
+
+This lab established a secure and scalable network foundation that supports:
+
+* Public access for web-facing components
+* Private isolation for sensitive backend services
+
+---
+

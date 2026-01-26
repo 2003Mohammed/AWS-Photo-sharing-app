@@ -1,0 +1,123 @@
+# IAM Lab — AWS Photo Sharing App
+
+## Overview
+
+This lab implements **AWS Identity and Access Management (IAM)** to secure the cloud environment. IAM provides centralized control over **who can access AWS resources** and **what actions they can perform**, enabling secure and scalable access management.
+
+The lab demonstrates the creation of IAM Users, Groups, Roles, and the application of **permissions policies**.
+
+---
+
+## Environment
+
+* AWS Console (lab-provided account)
+* Region: `us-east-1` (N. Virginia)
+* Existing IAM admin user with permission to create users, groups, and roles
+
+---
+
+## Lab Objectives
+
+* Create an IAM User with console access
+* Create an IAM Group and assign users
+* Create an IAM Role for temporary access
+* Apply least-privilege permissions
+
+---
+
+## Task 1: Create an IAM User
+
+**Goal:** Create a dedicated IAM user for console access with unique credentials.
+
+**Steps Performed:**
+
+1. Accessed **IAM → Users → Create user**
+2. Configured user details:
+
+   * **User name:** `iamuser-analyst`
+   * Enabled **AWS Management Console access**
+   * Set **Custom password:** `Password123!`
+   * Unchecked **Require password reset at next sign-in**
+3. Attached permissions by copying from the current admin user
+4. Verified `iamuser-analyst` exists in the IAM Users list
+
+**Verification:**
+
+* [x] IAM user `iamuser-analyst` exists
+* [x] Console access enabled
+* [x] Permissions applied successfully
+
+---
+
+## Task 2: Create an IAM Group
+
+**Goal:** Create a group to manage multiple users efficiently.
+
+**Steps Performed:**
+
+1. Accessed **IAM → User groups → Create group**
+2. Configured:
+
+   * **Group name:** `finance-team`
+3. Added all existing users to the group
+4. Attached **AmazonS3ReadOnlyAccess** policy
+5. Verified users and policy assignment
+
+**Verification:**
+
+* [x] IAM group `finance-team` exists
+* [x] Policy attached correctly
+* [x] All intended users are members
+
+---
+
+## Task 3: Create an IAM Role
+
+**Goal:** Create a role to provide temporary, secure access.
+
+**Steps Performed:**
+
+1. Accessed **IAM → Roles → Create role**
+2. Configured trusted entity:
+
+   * **Trusted entity type:** AWS account
+   * **Select AWS account:** This account
+3. Attached **AmazonS3ReadOnlyAccess** policy
+4. Named the role `finance-manager` and optionally added a description
+5. Verified role creation and **Trust relationships**
+
+**Verification:**
+
+* [x] IAM role `finance-manager` exists
+* [x] Policy attached correctly
+* [x] Trust relationship points to current AWS account
+
+---
+
+## Knowledge Check: Roles vs Users
+
+**Question:** Why is attaching an IAM Role to an EC2 instance better than using IAM User access keys?
+
+**Answer:**
+
+* Roles provide **temporary credentials** that rotate automatically
+* Reduces risk of **credential leakage**
+* Automatically available to EC2 via **instance metadata service**
+* Supports **least-privilege access** without long-term keys
+
+---
+
+## Lab Summary
+
+* **Granular Identity:** Created `iamuser-analyst` with specific permissions
+* **Scalable Management:** Managed multiple users via `finance-team` group
+* **Temporary Security:** Created `finance-manager` role for secure temporary access
+* **Access Control:** Applied policies to enforce least privilege
+
+**Importance:**
+
+* Establishes a **secure foundation** for enterprise applications
+* Follows AWS best practices for user access and service security
+* Supports auditing and compliance
+
+---
