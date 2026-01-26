@@ -1,5 +1,3 @@
----
-
 # AWS Photo Sharing App – Hands-On Labs
 
 **About**
@@ -19,7 +17,7 @@ This repository documents a step-by-step, hands-on approach to building a comple
 * **Storage:** RDS (Relational Database Service), S3
 * **Monitoring:** CloudWatch dashboards, alarms
 
----
+
 
 ## Labs Included
 
@@ -37,7 +35,6 @@ This repository documents a step-by-step, hands-on approach to building a comple
 | Lab 10: CloudWatch     | Monitor and set alarms for infrastructure                        | `10-cloudwatch/` |
 | Lab 11: Capstone       | Integrate all services into a fully functional photo-sharing app | `11-capstone/`   |
 
----
 
 ## Skills Demonstrated
 
@@ -49,7 +46,6 @@ This repository documents a step-by-step, hands-on approach to building a comple
 * Monitoring, logging, and alerting for production-ready applications
 * Integrating multiple AWS services into a cohesive application
 
----
 
 ## Repository Structure
 
@@ -72,7 +68,7 @@ aws-photo-sharing-app-learning/
 └── 11-capstone/
 ```
 
----
+
 
 ## How to Use This Repository
 
@@ -80,4 +76,3 @@ aws-photo-sharing-app-learning/
 2. Review `architecture/` for high-level design and diagrams of the photo-sharing app.
 3. Use the Capstone lab as a reference for **integrating all services** into a production-ready AWS application.
 
----
