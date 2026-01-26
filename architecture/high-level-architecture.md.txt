@@ -1,0 +1,80 @@
+
+# High-Level Architecture – AWS Photo Sharing App
+
+## Overview
+
+This architecture demonstrates a production-ready, Instagram-like Photo Sharing App built entirely on **AWS services**. The design follows a **3-tier architecture** with secure networking, scalable compute, managed storage, serverless processing, and monitoring.
+
+The application integrates the following key AWS services:
+
+* **Networking:** VPC, public/private subnets, Internet Gateway, route tables
+* **Security & Identity:** IAM Users, Groups, Roles; KMS encryption; Secrets Manager
+* **Compute:** EC2 instances (Docker), Lambda serverless functions, Application Load Balancer
+* **Storage:** S3 buckets for media storage, RDS for relational data
+* **Monitoring:** CloudWatch dashboards, metrics, and alarms
+
+---
+
+## Architecture Layers
+
+### 1. Networking Layer
+
+* **VPC:** Provides an isolated network for the application
+* **Subnets:**
+
+  * **Public Subnet:** Hosts EC2 instances behind an Application Load Balancer
+  * **Private Subnet:** Hosts RDS database and Lambda functions, not directly exposed to the internet
+* **Internet Gateway (IGW):** Enables internet access for public-facing resources
+* **Route Tables:** Direct traffic between subnets and IGW
+
+### 2. Security Layer
+
+* **IAM Users, Groups, and Roles:** Manage access and permissions for developers, admins, and services
+* **KMS (Key Management Service):** Encrypts sensitive data at rest
+* **Secrets Manager:** Securely stores database credentials and API keys
+
+### 3. Compute Layer
+
+* **EC2 Instances:** Run Docker containers for the frontend and backend services
+* **Application Load Balancer (ALB):** Distributes incoming traffic across EC2 instances
+* **Lambda Functions:** Serverless image processing (resizing, thumbnail creation, metadata extraction)
+
+### 4. Storage Layer
+
+* **S3 Buckets:** Store user-uploaded photos and processed images
+* **RDS Database:** Relational database for user data, posts, and metadata
+
+### 5. Monitoring Layer
+
+* **CloudWatch:** Monitors infrastructure metrics, logs, and sets alarms for thresholds (CPU, memory, Lambda errors, etc.)
+
+---
+
+## Data Flow
+
+1. Users upload photos via the frontend served from EC2 instances.
+2. ALB routes requests to EC2 instances running backend services.
+3. Uploaded images are stored in **S3** and optionally processed by **Lambda**.
+4. **RDS** stores metadata (user info, post details, comments).
+5. **CloudWatch** tracks application and infrastructure health.
+6. IAM ensures secure access for users and services, enforcing least-privilege principles.
+
+---
+
+## Key Features
+
+* **3-Tier Architecture:** Frontend, backend, and database layers separated for security and scalability
+* **Serverless Processing:** Lambda functions handle image processing without managing servers
+* **End-to-End Security:** IAM, KMS, and Secrets Manager protect sensitive data
+* **Scalable & Resilient:** ALB distributes traffic; RDS can run in Multi-AZ configuration
+* **Monitoring & Alerts:** CloudWatch dashboards provide real-time insights
+
+---
+
+## Diagram
+
+Refer to `diagrams.png` in the `architecture/` folder for a visual representation of the architecture.
+
+
+This document paired with `diagrams.png` gives a **clear overview for recruiters, interviews, or portfolio reviewers**, showing both your **hands-on AWS skills** and your understanding of **cloud architecture best practices**.
+
