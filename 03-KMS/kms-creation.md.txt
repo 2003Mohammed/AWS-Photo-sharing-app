@@ -1,0 +1,153 @@
+# AWS KMS – Key Management Service Lab
+
+## Overview
+
+This lab focuses on implementing **encryption at rest** using **AWS Key Management Service (KMS)**. You create and manage your own cryptographic keys, enable automated security controls, and integrate encryption with Amazon S3.
+
+KMS is a foundational security service used across AWS to meet compliance, auditing, and data-protection requirements.
+
+---
+
+## Objectives
+
+By completing this lab, you will:
+
+* Create a **Customer Managed KMS Key (CMK)**
+* Understand **symmetric encryption** and key policies
+* Enable **automatic key rotation**
+* Encrypt an S3 bucket using **SSE-KMS**
+
+---
+
+## Key Concepts
+
+### AWS KMS
+
+AWS Key Management Service is a centralized service for creating, managing, and auditing encryption keys. KMS controls **who can encrypt and decrypt data**, but it does not store the data itself.
+
+### Customer Managed Key (CMK)
+
+A key created and managed by you, offering full control over:
+
+* Key permissions
+* Rotation
+* Lifecycle management
+
+### Symmetric Key
+
+The standard KMS key type where the **same key encrypts and decrypts data**. This is the most commonly used key type for AWS services.
+
+### Key Policy
+
+A resource-based policy attached directly to the KMS key that defines who can administer and use the key.
+
+
+### Key Rotation
+
+Automatically updates the cryptographic material every **365 days** without changing the key ID, improving long-term security.
+
+---
+
+## Task 1: Create a Customer Managed Key
+
+**Goal:** Create a symmetric KMS key for encryption and decryption.
+
+**Steps:**
+
+1. Open **AWS KMS** from the console
+2. Click **Create key**
+3. Configure:
+
+   * Key type: **Symmetric**
+   * Key usage: **Encrypt and decrypt**
+4. Assign alias: **lab-key**
+5. Select your IAM user as:
+
+   * Key Administrator
+   * Key User
+6. Create the key
+
+**Verification:**
+
+* Key alias `lab-key` exists
+* Status is **Enabled**
+* Key type is **Customer Managed, Symmetric**
+
+---
+
+## Task 2: Enable Automatic Key Rotation
+
+**Goal:** Improve security by rotating cryptographic material automatically.
+
+**Steps:**
+
+1. Open the **lab-key** details page
+2. Navigate to **Key rotation** tab
+3. Enable key rotation
+4. Save changes
+
+**Verification:**
+
+* Key rotation status shows **Enabled**
+
+---
+
+## Task 3: Encrypt an S3 Bucket Using KMS
+
+**Goal:** Apply server-side encryption using your CMK.
+
+**Steps:**
+
+1. Create a new S3 bucket with a globally unique name
+2. Open bucket **Properties**
+3. Edit **Default encryption**
+4. Configure:
+
+   * Encryption type: **SSE-KMS**
+   * KMS key: **lab-key**
+5. Save changes
+
+**Verification:**
+
+* Bucket default encryption shows **SSE-KMS**
+* KMS key used is **lab-key**
+
+---
+
+## Knowledge Checks
+
+### Key Type
+
+The created key is a **Symmetric Customer Managed Key**.
+
+### Key Deletion Impact
+
+If the KMS key is deleted:
+
+* Encrypted S3 objects remain stored
+* Data becomes **permanently inaccessible** after key deletion completes
+
+---
+
+## Why This Matters
+
+In production environments—especially in **finance, healthcare, and regulated industries**—organizations must:
+
+* Control their own encryption keys
+* Enforce strict access policies
+* Rotate keys regularly
+* Prove encryption compliance during audits
+
+By completing this lab, you implemented the **exact encryption workflow used in enterprise AWS environments**.
+
+---
+
+## Outcome
+
+You now have hands-on experience with:
+
+* Customer-managed encryption keys
+* Automated security best practices
+* Secure integration of KMS with S3
+
+This lab forms a critical security foundation for the final **Photo Sharing Application Capstone Project**.
