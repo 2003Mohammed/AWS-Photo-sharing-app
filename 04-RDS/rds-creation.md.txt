@@ -1,0 +1,146 @@
+
+
+# RDS Security & Managed Database Fundamentals
+
+**Lab 4 – AWS Cloud Photo Sharing Application**
+
+
+
+## Overview
+
+This lab establishes a **managed relational database layer** for the application using Amazon RDS. The focus is on deploying a secure MySQL database, enforcing network isolation, enabling encryption, and validating backup and scaling capabilities.
+
+The objective is to design a database setup that follows **production-grade security and availability best practices** while offloading operational overhead to AWS.
+
+---
+
+## Environment
+
+* AWS Console (lab-provided temporary account)
+* Region: `us-east-1 (N. Virginia)`
+* Database Engine: MySQL
+
+---
+
+## Database Configuration Summary
+
+| Component       | Configuration                          |
+| --------------- | -------------------------------------- |
+| DB Identifier   | `kodekloud-lab-db`                     |
+| Engine          | MySQL community version                                 |
+| Deployment Type | Single-AZ                              |
+| Instance Class  | Modified during lab (Vertical Scaling) |
+| Storage         | AWS-managed EBS                        |
+| Encryption      | Enabled                                |
+| Public Access   | Disabled                               |
+| Backup Method   | Manual DB Snapshot                     |
+
+---
+
+## RDS Instance Configuration
+
+A MySQL RDS instance was provisioned using AWS-managed infrastructure to act as the primary relational database for the application.
+
+### Key Points
+
+* No operating system or database server management required
+* AWS handles patching, maintenance, and hardware provisioning
+* Instance created using console-based configuration for controlled setup
+
+---
+
+## Network & Access Control
+
+The database was deployed in **private networking context** to ensure isolation from the public internet.
+
+### Public Accessibility
+
+* **Public Access: Disabled**
+* Database is not reachable from the open internet
+* Access is restricted to resources within the VPC
+
+### Security Implications
+
+* Reduces attack surface
+* Aligns with best practices for backend data stores
+* Prevents direct exposure of database endpoints
+
+---
+
+## Data Protection
+
+### Encryption at Rest
+
+Encryption was enabled to protect stored data using AWS-managed encryption mechanisms.
+
+* Protects data on disk
+* Ensures compliance with common security standards
+* Transparent to the application layer
+
+---
+
+## Scaling Strategy
+
+### Vertical Scaling
+
+The DB instance class was modified during runtime to demonstrate vertical scaling.
+
+* No data loss during modification
+* Minimal downtime depending on configuration
+* Allows adaptation to increased workload demands
+
+---
+
+## Backup & Recovery
+
+### Manual Snapshot
+
+A manual DB snapshot was created to capture a point-in-time backup of the database.
+
+* Snapshot persists independently of the DB lifecycle
+* Can be used to restore or clone databases
+* Critical for disaster recovery scenarios
+
+---
+
+## Verification
+
+The following checks were completed:
+
+* RDS instance status shows `Available`
+* Public access is set to `No`
+* Encryption is enabled
+* DB snapshot is visible and in `Available` state
+* Instance class modification completed successfully
+
+---
+
+## Key Observations
+
+* RDS abstracts infrastructure management while retaining control
+* Network isolation is enforced at the service level
+* Backups and scaling can be performed without manual server access
+* Databases should always reside in private network boundaries
+
+
+
+Screenshots include:
+
+* RDS instance creation details
+* Public access configuration
+* Encryption settings
+* Instance modification history
+* Manual snapshot creation
+
+
+
+## Conclusion
+
+This lab established a secure, scalable, and production-aligned relational database layer that supports:
+
+* Secure storage of application data
+* Controlled access within private networks
+* Operational resilience through backups and scaling
+
+By using Amazon RDS, the application benefits from managed reliability while maintaining strong security guarantees.
+
